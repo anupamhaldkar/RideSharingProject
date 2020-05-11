@@ -38,6 +38,7 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.2.0'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation project(':simulator')
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     // Places Library (required for search places)
     implementation 'com.google.android.libraries.places:places:2.2.0'
 
