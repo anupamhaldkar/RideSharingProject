@@ -1,16 +1,13 @@
 package com.mindorks.ridesharing.ui.maps
 
-import android.animation.ValueAnimator
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Camera
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
 import android.view.View
-import android.view.animation.Animation
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.common.api.Status
@@ -29,9 +26,12 @@ import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.mindorks.ridesharing.R
 import com.mindorks.ridesharing.data.network.NetworkService
-import com.mindorks.ridesharing.utils.*
+import com.mindorks.ridesharing.utils.AnimationUtils
+import com.mindorks.ridesharing.utils.MapUtils
+import com.mindorks.ridesharing.utils.PermissionUtils
+import com.mindorks.ridesharing.utils.ViewUtils
 import kotlinx.android.synthetic.main.activity_maps.*
-import kotlinx.android.synthetic.main.activity_maps.view.*
+
 class MapsActivity : AppCompatActivity(), MapsView, OnMapReadyCallback {
 
     companion object {
@@ -73,14 +73,14 @@ class MapsActivity : AppCompatActivity(), MapsView, OnMapReadyCallback {
 
 
     private fun setUpClickListener() {
-        pickUpTextView.setOnClickListener() {
+        pickUpTextView.setOnClickListener {
             launchLocationAutoCompleteActivity(PICKUP_REQUEST_CODE)
         }
 
-        dropTextView.setOnClickListener() {
+        dropTextView.setOnClickListener {
             launchLocationAutoCompleteActivity(DROP_REQUEST_CODE)
         }
-        requestCabButton.setOnClickListener() {
+        requestCabButton.setOnClickListener {
             statusTextView.visibility = View.VISIBLE
             statusTextView.text = getString(R.string.requesting_your_cab)
             requestCabButton.isEnabled = false
@@ -157,7 +157,7 @@ class MapsActivity : AppCompatActivity(), MapsView, OnMapReadyCallback {
                     }
                 }
 
-                // update the user's location on server every 2 sec
+                // updating the user's location on server every 2 sec using gps
             }
         }
 
@@ -289,6 +289,7 @@ class MapsActivity : AppCompatActivity(), MapsView, OnMapReadyCallback {
 
                 Activity.RESULT_CANCELED -> {
                     // cancelled
+
                 }
             }
         }
@@ -328,11 +329,10 @@ class MapsActivity : AppCompatActivity(), MapsView, OnMapReadyCallback {
         val bound = builder.build()
         googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bound, 2))
         val polyLineOptions = PolylineOptions()
-        polyLineOptions.run {
-            color(Color.GRAY)
-            width(5f)
-            addAll(latlngList)
-        }
+        polyLineOptions.color(Color.GRAY)
+        polyLineOptions.width(5f)
+        polyLineOptions.addAll(latlngList)
+
         greyPolyLine = googleMap.addPolyline(polyLineOptions)
         val blackPolyLineOptions = PolylineOptions()
         polyLineOptions.run {
@@ -377,6 +377,7 @@ class MapsActivity : AppCompatActivity(), MapsView, OnMapReadyCallback {
                         multiplier * currentLatLngFromServer!!.longitude + ( 1 - multiplier) * previousLatLngFromServer!!.longitude
                     )
                     movingCabMarker?. position = nextLocation
+
                     val rotation = MapUtils.getRotation(previousLatLngFromServer!!, nextLocation)
                     if(!rotation.isNaN()) {
                         movingCabMarker?.rotation = rotation
@@ -384,8 +385,9 @@ class MapsActivity : AppCompatActivity(), MapsView, OnMapReadyCallback {
                     movingCabMarker?.setAnchor(0.5f, 0.5f)
                     animationCamera(nextLocation)
                 }
-                valueAnimator.start()
+
             }
+            valueAnimator.start()
         }
 
     }

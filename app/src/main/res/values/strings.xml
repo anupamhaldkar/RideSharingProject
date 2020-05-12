@@ -1,18 +1,18 @@
 <resources>
-    <string name="app_name">RideSharing</string>
+    <string name="app_name">RideService</string>
     <string name="enable_gps">Enable GPS</string>
     <string name="required_for_this_app">Required for the App</string>
     <string name="enable_now">Enable Now</string>
     <string name="where_to">Where to?</string>
     <string name="pickup_location">Pickup Location</string>
-    <string name="request_cab">Request Cab</string>
-    <string name="requesting_your_cab">Requesting your cab</string>
+    <string name="request_cab">Request Cab(Get Set Go)</string>
+    <string name="requesting_your_cab">Requesting your cab(XÆA-12)</string>
     <string name="current_location">Current Location</string>
-    <string name="your_cab_is_booked">Your Cab is Booked</string>
-    <string name="your_cab_is_arriving">Your Cab is Arriving</string>
-    <string name="your_cab_has_arrived">Your cab has arrived</string>
-    <string name="you_are_on_a_trip">You are on a Trip</string>
+    <string name="your_cab_is_booked">Your Cab <b>XÆA-12</b> is Booked</string>
+    <string name="your_cab_is_arriving">Your Cab <b>XÆA-12</b> is Arriving</string>
+    <string name="your_cab_has_arrived">Your cab <b>XÆA-12</b> has arrived</string>
+    <string name="you_are_on_a_trip">You are on a (Driverless) Trip</string>
     <string name="trip_end">Trip End</string>
     <string name ="take_next_ride">Take Next Ride</string>
-    <string name="route_not_available_choose_different_locations">Route not available choose different locations</string>
+    <string name="route_not_available_choose_different_locations">Route not available or Too far, choose different locations</string>
 </resources>
